@@ -9,7 +9,6 @@ import {
   RefreshCw, 
   Award, 
   BrainCircuit, 
-  Mic, 
   History,
   CheckCircle2,
   XCircle,
@@ -76,9 +75,6 @@ const App: React.FC = () => {
   const [rhymeInput, setRhymeInput] = useState('');
   const [rhymes, setRhymes] = useState<string[]>([]);
   const [toolTab, setToolTab] = useState<'writer' | 'rhymes'>('writer');
-
-  // Voice States (Mock)
-  const [isListening, setIsListening] = useState(false);
 
   const arabicMeters = useMemo(() => [
     { 
@@ -295,39 +291,6 @@ const App: React.FC = () => {
     setVerseInput(random);
   };
 
-  const handleVoiceRecord = () => {
-    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    if (!SpeechRecognition) {
-      alert("عذراً، متصفحك لا يدعم التعرف على الكلام.");
-      return;
-    }
-
-    const recognition = new SpeechRecognition();
-    recognition.lang = 'ar-SA';
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
-
-    recognition.onstart = () => {
-      setIsListening(true);
-    };
-
-    recognition.onresult = (event: any) => {
-      const speechToText = event.results[0][0].transcript;
-      setVerseInput(speechToText);
-    };
-
-    recognition.onerror = (event: any) => {
-      console.error(event.error);
-      setIsListening(false);
-    };
-
-    recognition.onend = () => {
-      setIsListening(false);
-    };
-
-    recognition.start();
-  };
-
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
 
   const startQuizFlow = async (level: string) => {
@@ -482,13 +445,6 @@ const App: React.FC = () => {
                     onChange={(e) => setVerseInput(e.target.value)}
                   />
                   <div className="absolute left-4 bottom-4 flex gap-2">
-                     <button 
-                        onClick={handleVoiceRecord}
-                        title="تسجيل صوتي"
-                        className={`p-3 rounded-full transition-all shadow-sm ${isListening ? 'bg-red-500 text-white animate-pulse' : 'bg-white text-slate-400 hover:text-emerald-600 hover:shadow-md'}`}
-                     >
-                      <Mic size={24} />
-                     </button>
                      <button 
                         onClick={insertRandomExample}
                         title="مثال عشوائي"
