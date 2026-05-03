@@ -45,8 +45,16 @@ const App: React.FC = () => {
   const [verseInput, setVerseInput] = useState('');
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [history, setHistory] = useState<AnalysisResult[]>([]);
+  const [history, setHistory] = useState<AnalysisResult[]>(() => {
+    const saved = localStorage.getItem('arudi_history');
+    return saved ? JSON.parse(saved) : [];
+  });
   const [showHistory, setShowHistory] = useState(false);
+
+  // Sync history to localStorage
+  React.useEffect(() => {
+    localStorage.setItem('arudi_history', JSON.stringify(history));
+  }, [history]);
 
   // Learning States
   const [quiz, setQuiz] = useState<QuizQuestion[]>([]);
@@ -288,16 +296,44 @@ const App: React.FC = () => {
   };
 
   const handleVoiceRecord = () => {
-    setIsListening(true);
-    setTimeout(() => {
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert("عذراً، متصفحك لا يدعم التعرف على الكلام.");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'ar-SA';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.onstart = () => {
+      setIsListening(true);
+    };
+
+    recognition.onresult = (event: any) => {
+      const speechToText = event.results[0][0].transcript;
+      setVerseInput(speechToText);
+    };
+
+    recognition.onerror = (event: any) => {
+      console.error(event.error);
       setIsListening(false);
-      setVerseInput("لِخَوْلَةَ أطْلالٌ بِبُرْقَةِ ثَهْمَدِ ** تَلُوحُ كَبَاقِي الوَشْمِ فِي ظاهِرِ اليَدِ");
-    }, 1500);
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    recognition.start();
   };
+
+  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
 
   const startQuizFlow = async (level: string) => {
     setQuizLevel(level);
     setIsLoading(true);
+    setSelectedAnswer(null);
     try {
       const { questions, tips } = await generateQuiz(level);
       setQuiz(questions);
@@ -311,6 +347,23 @@ const App: React.FC = () => {
       alert("فشل توليد التحدي. جرب لاحقاً.");
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleAnswerSelect = (index: number) => {
+    if (selectedAnswer !== null) return;
+    setSelectedAnswer(index);
+    if (index === quiz[currentQuestion].correctIndex) {
+      setScore(s => s + 10);
+    }
+  };
+
+  const handleNextQuestion = () => {
+    setSelectedAnswer(null);
+    if (currentQuestion + 1 < quiz.length) {
+      setCurrentQuestion(q => q + 1);
+    } else {
+      setIsQuizFinished(true);
     }
   };
 
@@ -653,16 +706,58 @@ const App: React.FC = () => {
               </div>
               <h3 className="text-2xl font-bold text-slate-800 mb-8 leading-relaxed">{quiz[currentQuestion].question}</h3>
               <div className="space-y-4">
-                {quiz[currentQuestion].options.map((opt, i) => (
-                  <button key={i} onClick={() => {
-                    if (i === quiz[currentQuestion].correctIndex) setScore(s => s + 10);
-                    if (currentQuestion + 1 < quiz.length) setCurrentQuestion(q => q + 1); else setIsQuizFinished(true);
-                  }} className="w-full p-5 text-right border-2 border-slate-50 hover:border-emerald-500 hover:bg-emerald-50 rounded-2xl transition-all font-bold text-slate-700 flex flex-row-reverse justify-between items-center group shadow-sm">
-                    <span className="text-lg">{opt}</span>
-                    <div className="w-8 h-8 rounded-full border-2 border-slate-200 group-hover:border-emerald-500 transition-all" />
-                  </button>
-                ))}
+                {quiz[currentQuestion].options.map((opt, i) => {
+                  const isCorrect = i === quiz[currentQuestion].correctIndex;
+                  const isSelected = i === selectedAnswer;
+                  
+                  let buttonClass = "border-slate-50 hover:border-emerald-500 hover:bg-emerald-50";
+                  if (selectedAnswer !== null) {
+                    if (isCorrect) buttonClass = "border-emerald-500 bg-emerald-50 text-emerald-700";
+                    else if (isSelected) buttonClass = "border-rose-500 bg-rose-50 text-rose-700";
+                    else buttonClass = "opacity-50 grayscale border-slate-50";
+                  }
+
+                  return (
+                    <button 
+                      key={i} 
+                      onClick={() => handleAnswerSelect(i)} 
+                      disabled={selectedAnswer !== null}
+                      className={`w-full p-5 text-right border-2 rounded-2xl transition-all font-bold flex flex-row-reverse justify-between items-center group shadow-sm ${buttonClass}`}
+                    >
+                      <span className="text-lg">{opt}</span>
+                      <div className={`w-8 h-8 rounded-full border-2 transition-all flex items-center justify-center ${
+                        selectedAnswer !== null && isCorrect ? 'bg-emerald-500 border-emerald-500 text-white' : 
+                        selectedAnswer !== null && isSelected && !isCorrect ? 'bg-rose-500 border-rose-500 text-white' : 
+                        'border-slate-200 group-hover:border-emerald-500'
+                      }`}>
+                        {selectedAnswer !== null && isCorrect && <CheckCircle2 size={16} />}
+                        {selectedAnswer !== null && isSelected && !isCorrect && <XCircle size={16} />}
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
+
+              {selectedAnswer !== null && (
+                <div className="mt-8 pt-8 border-t border-slate-50 animate-in slide-in-from-top-4 duration-500">
+                  {quiz[currentQuestion].explanation && (
+                    <div className="bg-slate-50 p-6 rounded-2xl mb-6 text-sm text-slate-600 font-medium leading-relaxed">
+                      <div className="flex items-center justify-end gap-2 mb-2 text-slate-400">
+                        <span className="font-black uppercase tracking-tighter">التوضيح</span>
+                        <Info size={14} />
+                      </div>
+                      {quiz[currentQuestion].explanation}
+                    </div>
+                  )}
+                  <button 
+                    onClick={handleNextQuestion}
+                    className="w-full bg-slate-900 text-white font-black py-4 rounded-2xl hover:bg-black transition-all shadow-xl flex items-center justify-center gap-2"
+                  >
+                    {currentQuestion + 1 < quiz.length ? 'السؤال التالي' : 'عرض النتيجة'}
+                    <ChevronLeft size={20} />
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </div>
