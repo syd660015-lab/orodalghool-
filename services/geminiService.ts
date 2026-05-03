@@ -51,7 +51,7 @@ const QUIZ_SCHEMA = {
 
 export const analyzeVerse = async (verse: string): Promise<AnalysisResult> => {
   const response = await ai.models.generateContent({
-    model: 'gemini-3-pro-preview',
+    model: 'gemini-3.1-pro-preview',
     contents: `حلل البيت الشعري التالي عروضياً بالتفصيل: "${verse}". 
     يجب أن يتضمن التحليل: الكتابة العروضية، اسم البحر، التفعيلات، والتقطيع (الرموز |0).`,
     config: {
@@ -66,7 +66,7 @@ export const analyzeVerse = async (verse: string): Promise<AnalysisResult> => {
 export const generateQuiz = async (level: string): Promise<{ questions: QuizQuestion[], tips: string }> => {
   const response = await ai.models.generateContent({
     model: 'gemini-3-flash-preview',
-    contents: `أنشئ 3 أسئلة اختيار من متعدد عن علم العروض العربي للمستوى: ${level}. أضف أيضاً نصيحة تعليمية أو مفتاحاً لأحد البحور الشعرية لتسهيل الحفظ. الأسئلة والنصيحة يجب أن تكون باللغة العربية الفصحى.`,
+    contents: `أنشئ 5 أسئلة اختيار من متعدد عن علم العروض العربي للمستوى: ${level}. أضف أيضاً نصيحة تعليمية أو مفتاحاً لأحد البحور الشعرية لتسهيل الحفظ. الأسئلة والنصيحة يجب أن تكون باللغة العربية الفصحى.`,
     config: {
       responseMimeType: "application/json",
       responseSchema: QUIZ_SCHEMA
@@ -78,7 +78,7 @@ export const generateQuiz = async (level: string): Promise<{ questions: QuizQues
 
 export const generateVerseOnMeter = async (prompt: string, meter: string): Promise<string> => {
   const response = await ai.models.generateContent({
-    model: 'gemini-3-pro-preview',
+    model: 'gemini-3.1-pro-preview',
     contents: `اكتب بيتاً شعرياً واحداً عن "${prompt}" على بحر "${meter}". تأكد من صحة الوزن والقافية.`,
   });
 

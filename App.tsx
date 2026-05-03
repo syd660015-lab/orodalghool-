@@ -34,7 +34,8 @@ import {
   Star,
   Zap,
   Copy,
-  ExternalLink
+  ExternalLink,
+  Info
 } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -77,7 +78,7 @@ const App: React.FC = () => {
       key: 'طويلٌ لهُ دُونَ البُحورِ فضائلُ', 
       circle: 'دائرة المختلفة', 
       tafila: 'فعولن مفاعيلن فعولن مفاعلن',
-      description: 'بحر جليل فخم ورصين، يتميز بطول نَفَسِه واتساع عباراته، وهو أكثر البحور استخداماً في الشعر القديم لقدرته على حمل المعاني العميقة والحكم.',
+      description: 'بحر جليل فخم ورصين، يتميز بطول نَفَسِه واتساع مفرداته. إيقاعه متموج يتناوب فيه الطول والقصر، مما يجعله الأنسب للحكم والملاحم الشعرية العميقة.',
       examples: [
         "قِفَا نَبْكِ مِنْ ذِكْرَى حَبِيبٍ ومَنْزِلِ ** بِسِقْطِ اللِّوَى بَيْنَ الدَّخُولِ فَحَوْمَلِ",
         "أبا هندٍ فلا تَعجَلْ علينا ** وأَنظِرنا نُخبِّركَ اليقينا",
@@ -89,7 +90,7 @@ const App: React.FC = () => {
       key: 'لِمديدِ الشِّعرِ عِندِي صِفاتُ', 
       circle: 'دائرة المختلفة', 
       tafila: 'فاعلاتن فاعلن فاعلاتن',
-      description: 'بحر خفيف متزن، يميل للرقة والهدوء، وغالباً ما يُستخدم في الأغراض الوجدانية والوصف اللطيف، ويتسم بنبرة موسيقية هادئة.',
+      description: 'بحر خفيف وهادئ، يميل إيقاعه للرقة والسلاسة مع تكرار نغمات مديدة متزنة. يبعث شعوراً باللطافة والوجد، ويكثر في الوصف الوجداني الهادئ.',
       examples: [
         "يا لَبَكرٍ أَنشِروا لي كُلَيْباً ** يا لَبَكرٍ أينَ أينَ الفِرارُ",
         "إنّما الدّنيا خيالٌ باهتٌ ** مثلما تَمضي بنا الأقدارُ"
@@ -100,7 +101,7 @@ const App: React.FC = () => {
       key: 'إنَّ البسيطَ لديهِ يُبسطُ الأملُ', 
       circle: 'دائرة المختلفة', 
       tafila: 'مستفعلن فاعلن مستفعلن فاعلن',
-      description: 'بحر منساب ومريح للنفس، يتسم بالمرونة والجزالة، ويصلح لكل الأغراض الشعرية خاصة الوصف والحكمة والمدح.',
+      description: 'بحر منساب وجزل، يتميز بإيقاع مرن يجمع بين القوة والسهولة (التبسيط). يمنح شعراً مريحاً للنفس، ويصلح للحكمة والمدح والوصف الشامل.',
       examples: [
         "الخَيْلُ وَاللّيْلُ وَالبَيْداءُ تَعْرِفُني ** وَالسّيْفُ وَالرّمحُ وَالقِرْطاسُ وَالقَلَمُ",
         "يا نائحَ الطَّلْحِ أَشباهٌ عَوادينا ** نَأْسى لِواديكمُ أَم نَأْسى لِوادينا"
@@ -111,7 +112,7 @@ const App: React.FC = () => {
       key: 'بُحورُ الشِّعرِ وافِرُها جَميلُ', 
       circle: 'دائرة المؤتلفة', 
       tafila: 'مفاعلتن مفاعلتن فعولن',
-      description: 'بحر عذب وموسيقي جداً، يميل للبهجة والوضوح وقوة النبرة، ويعد من أجمل البحور في الإيقاع والوقع على الأذن.',
+      description: 'بحر عذب وجرس موسيقي قوي، يتميز بنبرة واضحة ومبهجة نتيجة تكرار التفعيلة السباعية. يبعث روح الحيوية والجمال والوضوح في المشاعر.',
       examples: [
         "سكتُّ فغرَّ أعدائي السُّكوتُ ** وظنُّوني لأهلي قد نسيتُ",
         "إذا فنيَتْ ذنوبُكَ فاستعدَّا ** لِتُجزى بالذي قدَّمتَ نَقدا"
@@ -122,7 +123,7 @@ const App: React.FC = () => {
       key: 'كَمَلَ الجمالُ مِنَ البُحورِ الكاملُ', 
       circle: 'دائرة المؤتلفة', 
       tafila: 'متفاعلن متفاعلن متفاعلن',
-      description: 'بحر فخم وإيقاعي منتظم، يتميز بالجزالة والوضوح، ويسمح بتنوع التفعيلات مما يعطيه حيوية وقوة في التعبير.',
+      description: 'بحر فخم وقوي الإيقاع، يتميز بنبضات منتظمة وجزلة توحي بالاكتمال. يوفر مرونة كبيرة في التعبير، ويميل للرصانة والفخر والجزالة اللغوية.',
       examples: [
         "وإذا صحوتُ فما أقصرُ عن ندىً ** وكما علمتِ شمائلي وتكرُّمي",
         "يا دارَ مَيَّةَ بالعلياءِ فالسَّنَدِ ** أقْوَتْ وطالَ عليها سالفُ الأَبَدِ"
@@ -133,7 +134,7 @@ const App: React.FC = () => {
       key: 'على الأهزاجِ تسهيلُ', 
       circle: 'دائرة المجتلبة', 
       tafila: 'مفاعيلن مفاعيلن',
-      description: 'بحر خفيف وسريع الإيقاع، يميل للغزل والسرور والمقاطع القصيرة، وغالباً ما يأتي مجزوءاً ليزيد من خفته.',
+      description: 'بحر خفيف وسريع النغم، يتميز بإيقاع راقص وخفيف يوحي بالبهجة والسرور. يكثر استخدامه في المقطوعات القصيرة والغزل والتهاني.',
       examples: [
         "صفحنا عن بني ذهلٍ ** وقلنا القوم إخوانُ",
         "غزالٌ في الهوى قلبي ** بنارِ الوجدِ حيرانُ"
@@ -144,7 +145,7 @@ const App: React.FC = () => {
       key: 'في أبحرِ الأرجازِ بحرٌ يسهلُ', 
       circle: 'دائرة المجتلبة', 
       tafila: 'مستفعلن مستفعلن مستفعلن',
-      description: 'يُلقب بـ "حمار الشعراء" لسهولته وكثرة تنوعه، وهو بحر تعليمي بالدرجة الأولى، واضح النبرات، ويصلح للمنظومات الطويلة.',
+      description: 'يُعرف بـ "حمار الشعراء" لسهولته وكثرة تنوعه. إيقاعه مدرسي ومنتظم جداً، مما يجعله الأفضل للمنظومات التعليمية والقصائد السريعة.',
       examples: [
         "ما أطيبَ العيشَ لولا أنَّهُ ** ممرٌّ كأحلامِ الكرى والظِّلِّ",
         "إنّي امرؤٌ لم تُعيني المذاهبُ ** والعيشُ لا يذهبُ إلاّ الملاعبُ"
@@ -155,7 +156,7 @@ const App: React.FC = () => {
       key: 'رملُ الأبحرِ ترويهِ الثقاتُ', 
       circle: 'دائرة المجتلبة', 
       tafila: 'فاعلاتن فاعلاتن فاعلاتن',
-      description: 'بحر رقيق ومنسجم، يميل للحزن الشفيف أو الوجد الصوفي، وإيقاعه يشبه حرك الرمال أو موج البحر الهادئ.',
+      description: 'بحر رقيق وحزين الإيقاع، يشبه في تلاحق نغماته حركة الرمال الهادئة. يوحي بالوجد والشوق والشجن الشفيف، ويناسب المناجاة الصوفية.',
       examples: [
         "لا تَلُومي في الهوى قلبي فقد ** سُقِيَ الحُبَّ بكأساتِ الودادِ",
         "منْ يهنْ يسهلِ الهوانُ عليهِ ** ما لجرحٍ بميتٍ إيلامُ"
@@ -166,7 +167,7 @@ const App: React.FC = () => {
       key: 'بحرٌ سريعٌ مالهُ ساحلُ', 
       circle: 'دائرة المشتبهة', 
       tafila: 'مستفعلن مستفعلن مفعولات',
-      description: 'بحر قوي ومتدفق، يميل للانفعال والسرعة في طرح المعاني، ويشبه في إيقاعه نبضات القلب المتسارعة.',
+      description: 'بحر قوي ونشط، يتميز بإيقاع متلاحق يبعث على الحماس والسرعة في طرح المعاني. يشبه دقات القلب المتسارعة، ويناسب المواقف الانفعالية.',
       examples: [
         "النشرُ مسكٌ والوجوهُ دجىً ** والشعرُ ليلٌ والجبينُ ضحى",
         "يا ليتني كنتُ فيكمْ صبياً ** أعدو بليلٍ خلفَ الأماني"
@@ -177,7 +178,7 @@ const App: React.FC = () => {
       key: 'منسرحٌ فيهِ يُضربُ المثلُ', 
       circle: 'دائرة المشتبهة', 
       tafila: 'مستفعلن مفعولات مستفعلن',
-      description: 'بحر منساب ورشيق، يتميز بالمرونة في الانتقال بين التفعيلات، ويوحي بالسهولة واليسر في النظم.',
+      description: 'بحر منساب ورشيق، يتميز بليونة في الانتقال بين نغماته مما يوحي بالسهولة والاطمئنان. يجمع بين الانسياب والجزالة في بناء الجملة.',
       examples: [
         "يا من غدا في صبابةٍ وَلَهاً ** ما أنتَ إلاّ في لوعةٍ أبدا",
         "صبرتُ حتّى مَلّ الصبرُ صبري ** وقُلتُ يا دهرُ هلْ لكَ مِن غدرِ"
@@ -188,10 +189,10 @@ const App: React.FC = () => {
       key: 'يا خفيفاً خفّتْ بهِ الحركاتُ', 
       circle: 'دائرة المشتبهة', 
       tafila: 'فاعلاتن مستفعلن فاعلاتن',
-      description: 'بحر لطيف ومتزن، رقيق الحاشية، يجمع بين هيبة الطويل وخفة الرجز، ويصلح لمختلف الأغراض الوجدانية والوصفية.',
+      description: 'بحر لطيف ومتزن بشكل مذهل، يميل للرقة والاعتدال الموسيقي. يجمع بين هيبة الطويل وسرعة الرجز، وهو المفضل لكثير من الشعراء المعاصرين.',
       examples: [
         "إنّ حظّي كدقيقٍ فوقَ شوكٍ نثروه ** ثمّ قالوا لِحُفاةٍ في يوم ريحٍ اجمعوه",
-        "كمْ ملوكٍ قد مَلَكوا ثمّ بـادوا ** فكأنّ الذي مَضى لمْ يَكُنْ"
+        "كمْ ملوكٍ قد مَلَكوا ثمّ بـادوا ** كأنّ الذي مَضى لمْ يَكُنْ"
       ]
     },
     { 
@@ -199,7 +200,7 @@ const App: React.FC = () => {
       key: 'تُعدُّ المُضارعاتُ', 
       circle: 'دائرة المشتبهة', 
       tafila: 'مفاعيلن فاعلاتن',
-      description: 'بحر قصير ونادر الاستخدام في الشعر العربي القديم، يتميز برقته وإيقاعه الخاص الذي يميل للقصور والتركيز.',
+      description: 'بحر قصير وفريد، يتميز بوقفات رقيقة وإيقاع يميل للانقطاع الذكي. يبعث شعوراً بالتركيز والخصوصية، وهو من البحور النادرة والجميلة.',
       examples: [
         "دعاني إلى التّصابي ** خيالٌ زارَ من حبيبِ",
         "سقتني عيونُ شوقٍ ** رحيقاً من المشيبِ"
@@ -210,7 +211,7 @@ const App: React.FC = () => {
       key: 'اقتضبْ كما سألوا', 
       circle: 'دائرة المشتبهة', 
       tafila: 'مفعولات مستفعلن',
-      description: 'بحر سريع ومقتضب كما يوحي اسمه، يميل للإيجاز والسرعة في النطق، وهو من البحور قليلة التداول.',
+      description: 'بحر سريع جداً ومقتضب في نبرته، يوحي بالإيجاز والسرعة والحسم. إيقاعه قافز ومباشر، وقليل الاستخدام لبساطة نظمه.',
       examples: [
         "يا غزالاً سَبى نَهى ** وجلا في الهوى سَنا",
         "رأينا في الخيالِ طيفاً ** مَرّ سريعاً فما وَنى"
@@ -221,7 +222,7 @@ const App: React.FC = () => {
       key: 'إنْ جُثَّتِ الحركاتُ', 
       circle: 'دائرة المشتبهة', 
       tafila: 'مستفعلن فاعلاتن',
-      description: 'بحر رشيق وقصير، يميل للغناء والرقة، وكثيراً ما استُخدم في الموشحات والأشعار الرقيقة في العصور المتأخرة.',
+      description: 'بحر رشيق وغنائي بامتياز، يتميز برقته وسهولة تحويله لموسيقى مغناة. يبعث شعوراً بالرقة والانسجام، وكثيراً ما استعمل في الأندلس.',
       examples: [
         "القلبُ في غَمَراتِ ** والحبُّ في عَبَراتِ",
         "البدرُ في سماواتِ ** والزّهرُ في رَوْضاتِ"
@@ -232,7 +233,7 @@ const App: React.FC = () => {
       key: 'عنِ المتقاربِ قالَ الخليلُ', 
       circle: 'دائرة المتفقة', 
       tafila: 'فعولن فعولن فعولن فعولن',
-      description: 'بحر حماسي وقوي، يشبه في وقعه ركض الخيل أو الخطوات العسكرية، لذا يكثر استخدامه في شعر الفخر والبطولة.',
+      description: 'بحر حماسي قوي، يشبه إيقاعه المتلاحق وقع سنابك الخيل أو المسير العسكري. يبعث روح العزم والإقدام، وهو المفضل لقصائد الفخر والمعارك.',
       examples: [
         "أتتني على قدرٍ طيةٌ ** تهادى بها النّفسُ في ريبةِ",
         "لأمرٍ ما يسودُ من يسودُ ** ويُدركُ نَيلَ مَطلبهِ العبيدُ"
@@ -243,7 +244,7 @@ const App: React.FC = () => {
       key: 'حركاتُ المُحدثِ تنتقلُ', 
       circle: 'دائرة المتفقة', 
       tafila: 'فاعلن فاعلن فاعلن فاعلن',
-      description: 'بحر سريع وخفيف، يميل للوثب والحركة المتلاحقة، ويُسمى أيضاً بـ "المحدث" لأنه لم يثبته الخليل في دوائره بل زاده الأخفش.',
+      description: 'بحر سريع وواثب، يميل للحركة والنشاط المتلاحق ("الخبب"). إيقاعه متدارك يملأ الفراغات الموسيقية، مما يجعله حيوياً وحداثياً.',
       examples: [
         "جاءنا القومُ بالخبرِ ** فجزاهمُ اللهُ بالظفرِ",
         "يا ليلُ الصبُّ متى غدُه ** أقيامُ الساعةِ موعدُه"
@@ -254,6 +255,14 @@ const App: React.FC = () => {
   const filteredMeters = useMemo(() => {
     return arabicMeters.filter(m => m.name.includes(meterSearch) || m.key.includes(meterSearch));
   }, [meterSearch, arabicMeters]);
+
+  const analysisMeterInfo = useMemo(() => {
+    if (!analysis) return null;
+    return arabicMeters.find(m => 
+      analysis.meterName.includes(m.name) || 
+      (m.name !== 'عام' && m.name !== 'نثر' && analysis.meterName.includes(m.name))
+    ) || arabicMeters.find(m => analysis.meterName.toLowerCase().includes(m.name.toLowerCase()));
+  }, [analysis, arabicMeters]);
 
   const handleAnalyze = async (input?: string) => {
     const textToAnalyze = input || verseInput;
@@ -474,9 +483,31 @@ const App: React.FC = () => {
                   
                   <div className="space-y-1">
                     <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">بحر القصيدة</span>
-                    <h3 className="text-5xl font-black text-slate-900 poetry-font animate-in slide-in-from-bottom-2 duration-500 delay-300">
-                      بحر {analysis.meterName}
-                    </h3>
+                    <div className="flex items-center justify-center gap-3 group relative">
+                      <h3 className="text-5xl font-black text-slate-900 poetry-font animate-in slide-in-from-bottom-2 duration-500 delay-300">
+                        بحر {analysis.meterName}
+                      </h3>
+                      {analysisMeterInfo && (
+                        <div className="relative">
+                          <div className="bg-slate-100 p-1.5 rounded-full text-slate-400 hover:text-emerald-500 hover:bg-emerald-50 cursor-help transition-all shadow-sm">
+                            <Info size={16} />
+                          </div>
+                          <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 w-72 p-5 bg-slate-900/95 backdrop-blur-sm text-white text-xs rounded-[1.5rem] shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 pointer-events-none text-right border border-white/10">
+                            <div className="flex items-center justify-end gap-2 mb-2 text-emerald-400 font-black uppercase tracking-widest border-b border-white/10 pb-2">
+                              <span>عن بحر {analysisMeterInfo.name}</span>
+                              <Sparkles size={12} />
+                            </div>
+                            <p className="leading-relaxed font-medium text-[11px]">
+                              {analysisMeterInfo.description}
+                            </p>
+                            <div className="mt-3 pt-2 border-t border-white/10 text-emerald-300 italic font-bold">
+                              مفتاح البحر: {analysisMeterInfo.key}
+                            </div>
+                            <div className="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-slate-900/95" />
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
 
@@ -594,11 +625,21 @@ const App: React.FC = () => {
                 </div>
               </div>
               <div className="bg-amber-50 p-8 rounded-[2.5rem] border border-amber-100 text-right animate-in fade-in duration-700 delay-300">
-                 <div className="flex items-center justify-end gap-3 mb-4 text-amber-700">
-                    <h4 className="font-black text-lg">نصيحة "عروضي" الذهبية</h4>
-                    <div className="bg-amber-200 p-2 rounded-xl"><Lightbulb size={24} /></div>
+                 <div className="flex items-center justify-between mb-4 text-amber-700">
+                    <button 
+                       onClick={() => copyToClipboard(quizTips)}
+                       className="p-2.5 bg-amber-100/50 hover:bg-amber-200/50 text-amber-600 rounded-xl transition-all flex items-center gap-2 text-xs font-bold shadow-sm active:scale-95"
+                       title="نسخ النصيحة"
+                    >
+                       <Copy size={16} />
+                       <span>نسخ النصيحة</span>
+                    </button>
+                    <div className="flex items-center gap-3">
+                       <h4 className="font-black text-lg">نصيحة "عروضي" الذهبية</h4>
+                       <div className="bg-amber-200 p-2 rounded-xl"><Lightbulb size={24} /></div>
+                    </div>
                  </div>
-                 <p className="text-amber-900 leading-relaxed text-lg poetry-font">{quizTips}</p>
+                 <p className="text-amber-900 leading-relaxed text-lg poetry-font pr-2">{quizTips}</p>
               </div>
             </div>
           ) : (
@@ -702,7 +743,7 @@ const App: React.FC = () => {
                   <div className="p-6 bg-emerald-50/30 border-t border-emerald-100 animate-in slide-in-from-top-2 duration-300 space-y-6">
                     <div className="bg-white/60 p-5 rounded-2xl border border-emerald-100 shadow-sm">
                       <div className="flex items-center justify-end gap-2 mb-2 text-emerald-800">
-                        <span className="text-xs font-black uppercase tracking-widest">عن إيقاع البحر</span>
+                        <span className="text-xs font-black uppercase tracking-widest">إيقاع البحر وطابعه</span>
                         <Music size={14} />
                       </div>
                       <p className="text-sm text-slate-600 leading-relaxed text-right font-medium">
@@ -712,7 +753,7 @@ const App: React.FC = () => {
 
                     <div className="space-y-4">
                       <div className="flex items-center justify-end gap-2 mb-2 text-emerald-700">
-                        <span className="text-xs font-black uppercase tracking-widest">أمثلة شهيرة</span>
+                        <span className="text-xs font-black uppercase tracking-widest">أبيات من هذا البحر</span>
                         <Quote size={14} />
                       </div>
                       <div className="space-y-4">
