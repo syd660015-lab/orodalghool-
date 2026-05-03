@@ -61,18 +61,36 @@ const QUIZ_SCHEMA = {
 };
 
 export const analyzeVerse = async (verse: string): Promise<AnalysisResult> => {
-  const ai = getAI();
-  const response = await ai.models.generateContent({
-    model: 'gemini-3.1-pro-preview',
-    contents: `حلل البيت الشعري التالي عروضياً بالتفصيل: "${verse}". 
-    يجب أن يتضمن التحليل: الكتابة العروضية، اسم البحر، التفعيلات، والتقطيع (الرموز |0).`,
-    config: {
-      responseMimeType: "application/json",
-      responseSchema: ANALYSIS_SCHEMA
-    }
-  });
+  try {
+    const ai = getAI();
+    const response = await ai.models.generateContent({
+      model: 'gemini-3-flash-preview',
+      contents: `أنت خبير في العروض والشعر العربي. قم بتحليل البيت التالي عروضياً بدقة تامة: "${verse}". 
+      المطلوب:
+      1. الكتابة العروضية الصحيحة.
+      2. التقطيع العروضي (التفعيلات).
+      3. تحديد البحر الشعري.
+      4. توفير الرموز العروضية (scansion) باستخدام | للحركة و 0 للسكون.
+      
+      يجب أن تكون النتيجة بتنسيق JSON مطابق للمخطط المحدد.`,
+      config: {
+        responseMimeType: "application/json",
+        responseSchema: ANALYSIS_SCHEMA
+      }
+    });
 
-  return JSON.parse(response.text);
+    if (!response.text) {
+      throw new Error("لم يتم تلقي استجابة من الذكاء الاصطناعي");
+    }
+
+    return JSON.parse(response.text);
+  } catch (error: any) {
+    console.error("Error analyzing verse:", error);
+    if (error.message?.includes("429")) {
+      throw new Error("الخدمة مزدحمة حالياً، حاول مرة أخرى بعد قليل.");
+    }
+    throw new Error("حدث خطأ أثناء تحليل البيت. تأكد من إعداد المفتاح بشكل صحيح.");
+  }
 };
 
 export const generateQuiz = async (level: string): Promise<{ questions: QuizQuestion[], tips: string }> => {
