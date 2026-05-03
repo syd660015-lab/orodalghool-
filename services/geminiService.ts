@@ -2,7 +2,18 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { AnalysisResult, QuizQuestion } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+let aiInstance: GoogleGenAI | null = null;
+
+const getAI = () => {
+  if (!aiInstance) {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      throw new Error("GEMINI_API_KEY environment variable is required");
+    }
+    aiInstance = new GoogleGenAI({ apiKey });
+  }
+  return aiInstance;
+};
 
 const ANALYSIS_SCHEMA = {
   type: Type.OBJECT,
@@ -50,6 +61,7 @@ const QUIZ_SCHEMA = {
 };
 
 export const analyzeVerse = async (verse: string): Promise<AnalysisResult> => {
+  const ai = getAI();
   const response = await ai.models.generateContent({
     model: 'gemini-3.1-pro-preview',
     contents: `حلل البيت الشعري التالي عروضياً بالتفصيل: "${verse}". 
@@ -64,6 +76,7 @@ export const analyzeVerse = async (verse: string): Promise<AnalysisResult> => {
 };
 
 export const generateQuiz = async (level: string): Promise<{ questions: QuizQuestion[], tips: string }> => {
+  const ai = getAI();
   const response = await ai.models.generateContent({
     model: 'gemini-3-flash-preview',
     contents: `أنشئ 5 أسئلة اختيار من متعدد عن علم العروض العربي للمستوى: ${level}. أضف أيضاً نصيحة تعليمية أو مفتاحاً لأحد البحور الشعرية لتسهيل الحفظ. الأسئلة والنصيحة يجب أن تكون باللغة العربية الفصحى.`,
@@ -77,6 +90,7 @@ export const generateQuiz = async (level: string): Promise<{ questions: QuizQues
 };
 
 export const generateVerseOnMeter = async (prompt: string, meter: string): Promise<string> => {
+  const ai = getAI();
   const response = await ai.models.generateContent({
     model: 'gemini-3.1-pro-preview',
     contents: `اكتب بيتاً شعرياً واحداً عن "${prompt}" على بحر "${meter}". تأكد من صحة الوزن والقافية.`,
@@ -86,9 +100,10 @@ export const generateVerseOnMeter = async (prompt: string, meter: string): Promi
 };
 
 export const findRhymes = async (word: string): Promise<string[]> => {
+  const ai = getAI();
   const response = await ai.models.generateContent({
     model: 'gemini-3-flash-preview',
     contents: `أوجد 15 كلمة عربية تنتهي بنفس قافية الكلمة: "${word}". أعد الكلمات فقط كقائمة مفصولة بفواصل، بدون نص إضافي أو شرح.`,
   });
-  return response.text.split(/[,،\n]/).map(w => w.replace(/[*\d.]/g, '').trim()).filter(w => w.length > 0);
+  return response.text.split(/[,،\n]/).map(w => w.replace(/[^\u0600-\u06FF]/g, '').trim()).filter(w => w.length > 1);
 };
