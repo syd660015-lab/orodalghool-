@@ -41,7 +41,7 @@ const QUIZ_SCHEMA = {
           correctIndex: { type: Type.INTEGER },
           explanation: { type: Type.STRING }
         },
-        required: ["question", "options", "correctIndex"]
+        required: ["question", "options", "correctIndex", "explanation"]
       }
     },
     tips: { type: Type.STRING, description: "نصيحة تعليمية أو بيت شعري (مفتاح البحر) يساعد على تذكر الوزن" }
@@ -88,7 +88,7 @@ export const generateVerseOnMeter = async (prompt: string, meter: string): Promi
 export const findRhymes = async (word: string): Promise<string[]> => {
   const response = await ai.models.generateContent({
     model: 'gemini-3-flash-preview',
-    contents: `أوجد 10 كلمات عربية تنتهي بنفس قافية الكلمة: "${word}". أعد الكلمات فقط كقائمة مفصولة بفواصل.`,
+    contents: `أوجد 15 كلمة عربية تنتهي بنفس قافية الكلمة: "${word}". أعد الكلمات فقط كقائمة مفصولة بفواصل، بدون نص إضافي أو شرح.`,
   });
-  return response.text.split(/[,،]/).map(w => w.trim()).filter(w => w.length > 0);
+  return response.text.split(/[,،\n]/).map(w => w.replace(/[*\d.]/g, '').trim()).filter(w => w.length > 0);
 };
