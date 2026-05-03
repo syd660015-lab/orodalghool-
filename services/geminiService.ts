@@ -108,13 +108,27 @@ export const generateQuiz = async (level: string): Promise<{ questions: QuizQues
 };
 
 export const generateVerseOnMeter = async (prompt: string, meter: string): Promise<string> => {
-  const ai = getAI();
-  const response = await ai.models.generateContent({
-    model: 'gemini-3.1-pro-preview',
-    contents: `اكتب بيتاً شعرياً واحداً عن "${prompt}" على بحر "${meter}". تأكد من صحة الوزن والقافية.`,
-  });
+  try {
+    const ai = getAI();
+    const response = await ai.models.generateContent({
+      model: 'gemini-3-flash-preview',
+      contents: `أنت شاعر خبير ومتمكن من علم العروض العربي. اكتب بيتاً شعرياً واحداً (صدر وعجز) عن موضوع: "${prompt}" على بحر "${meter}". 
+      يجب أن يكون البيت موزوناً بدقة تامة على تفعيلات البحر المذكور، مع مراعاة القافية والجزالة اللغوية.
+      أعد البيت الشعري فقط، بدون أي شرح، مقدمات، أو خاتمة.`,
+    });
 
-  return response.text || "عذراً، لم أتمكن من توليد البيت.";
+    if (!response.text) {
+      throw new Error("لم يتم تلقي استجابة من الذكاء الاصطناعي");
+    }
+
+    return response.text.trim();
+  } catch (error: any) {
+    console.error("Error generating verse:", error);
+    if (error.message?.includes("429")) {
+      throw new Error("الخدمة مزدحمة حالياً، حاول مرة أخرى بعد قليل.");
+    }
+    throw new Error("فشل توليد البيت. تأكد من صحة الموضوع والبحر المختار.");
+  }
 };
 
 export const findRhymes = async (word: string): Promise<string[]> => {

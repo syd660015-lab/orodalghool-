@@ -332,12 +332,14 @@ const App: React.FC = () => {
 
   const handleToolAction = async () => {
     if (!toolPrompt.trim()) return;
+    setGeneratedVerse('');
     setIsLoading(true);
     try {
       const res = await generateVerseOnMeter(toolPrompt, selectedMeter);
       setGeneratedVerse(res);
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
+      alert(error.message || "فشل توليد البيت الشعري.");
     } finally {
       setIsLoading(false);
     }
@@ -345,12 +347,14 @@ const App: React.FC = () => {
 
   const handleRhymeSearch = async () => {
     if (!rhymeInput.trim()) return;
+    setRhymes([]);
     setIsLoading(true);
     try {
       const result = await findRhymes(rhymeInput);
       setRhymes(result);
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
+      alert("فشل البحث عن القوافي.");
     } finally {
       setIsLoading(false);
     }
